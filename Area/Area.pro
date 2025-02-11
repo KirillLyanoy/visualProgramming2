@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2025-02-10T16:08:50
+# Project created by QtCreator 2025-02-11T15:51:36
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = FiguresArea
+TARGET = Area
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -39,3 +39,16 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc
+
+DISTFILES += \
+    Resourses/circle.png \
+    Resourses/parallelogram.png \
+    Resourses/rectangle.png \
+    Resourses/rhombus.png \
+    Resourses/sector.png \
+    Resourses/square.png \
+    Resourses/trapizoid.png \
+    Resourses/triangle.png

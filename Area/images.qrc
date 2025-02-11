@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/Resourses">
+        <file>Resourses/circle.png</file>
+        <file>Resourses/parallelogram.png</file>
+        <file>Resourses/rectangle.png</file>
+        <file>Resourses/rhombus.png</file>
+        <file>Resourses/sector.png</file>
+        <file>Resourses/square.png</file>
+        <file>Resourses/trapizoid.png</file>
+        <file>Resourses/triangle.png</file>
+    </qresource>
+</RCC>
