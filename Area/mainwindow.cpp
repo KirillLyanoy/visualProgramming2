@@ -17,3 +17,4 @@ void MainWindow::on_action_2_triggered()
 {
     QMessageBox::about(0, "Автор", "Ляной К. К.");
 }
+

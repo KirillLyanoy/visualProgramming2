@@ -25,11 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        figures.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
+        FiguresArea.h \
         mainwindow.h
 
 FORMS += \
@@ -50,5 +50,5 @@ DISTFILES += \
     Resourses/rhombus.png \
     Resourses/sector.png \
     Resourses/square.png \
-    Resourses/trapizoid.png \
+    Resourses/trapezoid.png \
     Resourses/triangle.png

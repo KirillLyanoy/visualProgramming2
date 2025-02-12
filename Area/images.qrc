@@ -6,7 +6,7 @@
         <file>Resourses/rhombus.png</file>
         <file>Resourses/sector.png</file>
         <file>Resourses/square.png</file>
-        <file>Resourses/trapizoid.png</file>
         <file>Resourses/triangle.png</file>
+        <file>Resourses/trapezoid.png</file>
     </qresource>
 </RCC>
