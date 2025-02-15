@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include "explorer.h"
 
-//документ редактируется
+//флаги нового документа и редактирования документа
 bool isEdit = false;
 bool isNew = false;
 

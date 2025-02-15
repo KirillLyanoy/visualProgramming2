@@ -16,10 +16,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_action_triggered();
-    
-    void on_action_12_triggered();
-
     void on_exit_triggered();
 
     void on_create_triggered();

@@ -15,6 +15,13 @@ public:
     explicit Explorer(QWidget *parent = nullptr);
     ~Explorer();
 
+private slots:
+    void on_upPushBotton_clicked();
+
+    void on_comboBox_currentTextChanged(const QString &arg1);
+
+    void on_listView_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::Explorer *ui;
 };
