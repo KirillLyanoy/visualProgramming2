@@ -80,6 +80,33 @@ void MainWindow::closeFile()
     else return;
 }
 
+void MainWindow::InFile()
+{
+    QFile file(currentFileName);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QTextStream out(&file);
+
+        if (currentFileName.endsWith(".txt"))
+        {
+            out << content;
+        }
+        else if (currentFileName.endsWith(".html"))
+        {
+            QTextDocument document;
+            QTextCursor cursor(&document);
+            cursor.insertHtml(ui->mainTextEdit->toHtml());
+            out << document.toHtml();
+        }
+        file.close();
+       QMessageBox::information(0, "Запись", "Файл успешно сохранён");
+    }
+    else
+    {
+        QMessageBox::critical(0, "Ошибка", "Ошибка при записи файла");
+    }
+}
+
 void MainWindow::SaveAs()
 {
     Explorer explorer;
@@ -102,20 +129,8 @@ void MainWindow::SaveAs()
            else
                 currentFileName = filePath + "/" + fileName.getName();
 
-           QFile file(currentFileName);
-
-           if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-           {
-              QTextStream out(&file);
-              out << content;
-              file.close();
-              QMessageBox::information(0, "Запись", "Файл успешно сохранён");
-              isNew = false;
-           }
-           else
-           {
-               QMessageBox::critical(0, "Ошибка", "Ошибка при записи файла");
-           }
+           InFile();
+           isNew = false;
         }
     }
 }
@@ -124,18 +139,7 @@ void MainWindow::SaveFile()
 {
     if (isEdit)
     {
-        QFile file(currentFileName);
-        if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-        {
-           QTextStream out(&file);
-           out << content;
-           file.close();
-           QMessageBox::information(0, "Запись", "Файл успешно сохранён");
-        }
-        else
-        {
-            QMessageBox::critical(0, "Ошибка", "Ошибка при записи файла");
-        }
+        InFile();
     }
 }
 

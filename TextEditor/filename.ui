@@ -31,11 +31,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>.txt</string>
-       </property>
-      </widget>
+      <widget class="QComboBox" name="comboBox"/>
      </item>
     </layout>
    </item>

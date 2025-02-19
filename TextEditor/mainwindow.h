@@ -78,6 +78,8 @@ private:
     void SaveFile();
     void SaveAs();
 
+    void InFile();
+
     QString content;
     QString filePath;
     QString currentFileName;

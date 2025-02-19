@@ -24,10 +24,13 @@ private slots:
 
     bool checkName(QString name);
 
+    void on_comboBox_activated(const QString &arg1);
+
 private:
     Ui::FileName *ui;
 
     QString name;
+    QString extension;
 
 };
 

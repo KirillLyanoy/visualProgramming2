@@ -7,8 +7,12 @@ FileName::FileName(QWidget *parent) :
     ui(new Ui::FileName)
 {
     ui->setupUi(this);
-}
 
+    QList<QString> extensionList { ".txt", ".html" };
+    ui->comboBox->addItems(extensionList);
+    extension = extensionList[0];
+
+}
 
 
 bool FileName::checkName(QString name)
@@ -38,11 +42,35 @@ void FileName::on_pushButton_clicked()
 {
     if (checkName(ui->lineEdit->text()))
     {
-        name = ui->lineEdit->text() + ".txt";
+        if (extension == ".txt")
+        {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Question);
+            msgBox.setText("Формат .txt не сохраняет формат текста. Продолжить?");
+
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+            msgBox.setButtonText(QMessageBox::Yes, "Да");
+            msgBox.setButtonText(QMessageBox::No, "Нет");
+
+            int ret = msgBox.exec();
+
+            if (ret == QMessageBox::No)
+                return;
+        }
+
+
+        name = ui->lineEdit->text() + extension;
         FileName::accept();
+
     }
     else
     {
         QMessageBox::critical(0, "Ошибка", "Неправильное название файла");
     }
+}
+
+void FileName::on_comboBox_activated(const QString &arg1)
+{
+    extension = arg1;
 }

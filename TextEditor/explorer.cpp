@@ -96,7 +96,7 @@ void Explorer::on_listView_doubleClicked(const QModelIndex &index)
 bool Explorer::TxtFileCheck(QFileInfo current)
 {
      QString extension = current.suffix();
-     if (extension.compare("txt", Qt::CaseInsensitive) == 0) return true;
+     if (extension.compare("txt", Qt::CaseInsensitive) == 0 || extension.compare("html", Qt::CaseInsensitive) == 0) return true;
      else return false;
 }
 
@@ -119,14 +119,14 @@ void Explorer::Open(QFileInfo current, QString path)
     {
         QString extension = current.suffix();
 
-        if (extension.compare("txt", Qt::CaseInsensitive) == 0)
+        if (extension.compare("txt", Qt::CaseInsensitive) == 0 || extension.compare("html", Qt::CaseInsensitive) == 0)
         {
             currentPath = path;
             Explorer::accept();
         }
         else
         {
-            QMessageBox::critical(0, "Ошибка", "Выбранный файл не является текстовым. Выберите файл c расширением \".txt\"");
+            QMessageBox::critical(0, "Ошибка", "Выбранный файл не является текстовым. Выберите файл c расширением \".txt\" или \".html\"");
         }
     }
 }
