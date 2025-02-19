@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/resourses">
+        <file>resourses/bold.png</file>
+        <file>resourses/clear.png</file>
+        <file>resourses/close.png</file>
+        <file>resourses/copy.png</file>
+        <file>resourses/create.png</file>
+        <file>resourses/font.png</file>
+        <file>resourses/fontColor.png</file>
+        <file>resourses/fontSize.png</file>
+        <file>resourses/italic.png</file>
+        <file>resourses/open.png</file>
+        <file>resourses/paste.png</file>
+        <file>resourses/replace.png</file>
+        <file>resourses/save.png</file>
+        <file>resourses/saveAs.png</file>
+        <file>resourses/search.png</file>
+        <file>resourses/underlined.png</file>
+        <file>resourses/undo.png</file>
+    </qresource>
+</RCC>

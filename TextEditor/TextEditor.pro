@@ -26,18 +26,46 @@ CONFIG += c++11
 
 SOURCES += \
         explorer.cpp \
+        filename.cpp \
+        fontedit.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
         explorer.h \
+        filename.h \
+        fontedit.h \
         mainwindow.h
 
 FORMS += \
         explorer.ui \
+        filename.ui \
+        fontedit.ui \
         mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    resourses/bold.png \
+    resourses/clear.png \
+    resourses/close.png \
+    resourses/copy.png \
+    resourses/create.png \
+    resourses/font.png \
+    resourses/fontColor.png \
+    resourses/fontSize.png \
+    resourses/italic.png \
+    resourses/open.png \
+    resourses/paste.png \
+    resourses/replace.png \
+    resourses/save.png \
+    resourses/saveAs.png \
+    resourses/search.png \
+    resourses/underlined.png \
+    resourses/undo.png
+
+RESOURCES += \
+    icons.qrc
