@@ -16,8 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     if (!DataBase::Instance().connectToDatabase("salonDB"))
         QMessageBox::critical(0, "Ошибка", "Ошибка при подключении к базе данных.");
-
-    QSqlTableModel* users = new QSqlTableModel(this, DataBase::Instance().getDatabase());
 }
 
 MainWindow::~MainWindow()
@@ -27,35 +25,46 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_authButton_3_clicked()
 {
-    if (ui->loginLineEdit->text().isEmpty() || ui->passLineEdit->text().isEmpty())
-        QMessageBox::information(0, "Ошибка", "Поля не могут быть пустыми.");
-    else
-    {
-        QSqlQuery query;
-        query.prepare("SELECT * FROM users WHERE login = :login AND password = :password");
-        query.bindValue(":login", ui->loginLineEdit->text());
-        query.bindValue(":password", ui->passLineEdit->text());
+//    if (ui->loginLineEdit->text().isEmpty() || ui->passLineEdit->text().isEmpty())
+//        QMessageBox::information(0, "Ошибка", "Поля не могут быть пустыми.");
+//    else
+//    {
+//        QSqlQuery query;
+//        query.prepare("SELECT * FROM users WHERE login = :login AND password = :password");
+//        query.bindValue(":login", ui->loginLineEdit->text());
+//        query.bindValue(":password", ui->passLineEdit->text());
 
-        if (!query.exec())
-        {
-            QMessageBox::critical(0, "Ошибка", "Ошибка при обращении к базе пользователей.");
-            return;
-        }
+//        if (!query.exec())
+//        {
+//            QMessageBox::critical(0, "Ошибка", "Ошибка при обращении к базе пользователей.");
+//            return;
+//        }
 
-        if (query.next())
-        {
-            QWidget* schedule = new QWidget();
+//        if (query.next())
+//        {
+//            QString role = query.value(0).toString();
 
-            schedule->setWindowTitle("Расписание клиентов");
-            schedule->show();
-            this->close();
-        }
-        else
-        {
-            QMessageBox::information(0, "Ошибка", "Неправильный логин/пароль.");
-            QMessageBox msg;
-        }
-    }
+            Schedule schedule;
+
+            schedule.setWindowTitle("Расписание клиентов");
+
+//            if (role == "руководитель")
+//            {
+                schedule.SetSupervisorRules(true);
+//            }
+//            else if (role == "администратор")
+//            {
+//                schedule.SetSupervisorRules(false);
+//            }
+
+            this->setVisible(false);
+            schedule.exec();
+//        }
+//        else
+//        {
+//            QMessageBox::information(0, "Ошибка", "Неправильный логин/пароль.");
+//        }
+//    }
 }
 
 void MainWindow::on_pushButton_clicked()

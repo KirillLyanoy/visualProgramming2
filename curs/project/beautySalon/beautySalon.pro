@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,17 +29,20 @@ SOURCES += \
         forgotpass.cpp \
         main.cpp \
         mainwindow.cpp \
+        newclient.cpp \
         schedule.cpp
 
 HEADERS += \
         database.h \
         forgotpass.h \
         mainwindow.h \
+        newclient.h \
         schedule.h
 
 FORMS += \
         forgotpass.ui \
         mainwindow.ui \
+        newclient.ui \
         schedule.ui
 
 # Default rules for deployment.

@@ -25,5 +25,5 @@ DataBase::DataBase() {}
 
 DataBase::~DataBase()
 {
-    db.close();
+    //db.close();
 }
