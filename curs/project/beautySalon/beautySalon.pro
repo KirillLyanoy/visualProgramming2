@@ -25,24 +25,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        client.cpp \
         database.cpp \
         forgotpass.cpp \
         main.cpp \
         mainwindow.cpp \
-        newclient.cpp \
         schedule.cpp
 
 HEADERS += \
+        client.h \
         database.h \
         forgotpass.h \
         mainwindow.h \
-        newclient.h \
         schedule.h
 
 FORMS += \
+        client.ui \
         forgotpass.ui \
         mainwindow.ui \
-        newclient.ui \
         schedule.ui
 
 # Default rules for deployment.

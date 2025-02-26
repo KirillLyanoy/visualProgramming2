@@ -25,46 +25,52 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_authButton_3_clicked()
 {
-//    if (ui->loginLineEdit->text().isEmpty() || ui->passLineEdit->text().isEmpty())
-//        QMessageBox::information(0, "Ошибка", "Поля не могут быть пустыми.");
-//    else
-//    {
-//        QSqlQuery query;
-//        query.prepare("SELECT * FROM users WHERE login = :login AND password = :password");
-//        query.bindValue(":login", ui->loginLineEdit->text());
-//        query.bindValue(":password", ui->passLineEdit->text());
+    if (ui->loginLineEdit->text().isEmpty() || ui->passLineEdit->text().isEmpty())
+        QMessageBox::information(0, "Ошибка", "Поля не могут быть пустыми.");
+    else
+    {
+        QSqlQuery query;
+        query.prepare("SELECT * FROM users WHERE login = :login AND password = :password");
+        query.bindValue(":login", ui->loginLineEdit->text());
+        query.bindValue(":password", ui->passLineEdit->text());
 
-//        if (!query.exec())
-//        {
-//            QMessageBox::critical(0, "Ошибка", "Ошибка при обращении к базе пользователей.");
-//            return;
-//        }
+        if (!query.exec())
+        {
+            QMessageBox::critical(0, "Ошибка", "Ошибка при обращении к базе пользователей.");
+            return;
+        }
 
-//        if (query.next())
-//        {
-//            QString role = query.value(0).toString();
+        if (query.next())
+        {
+            QString role = query.value(0).toString();
 
             Schedule schedule;
 
             schedule.setWindowTitle("Расписание клиентов");
 
-//            if (role == "руководитель")
-//            {
+            if (role == "руководитель")
+            {
                 schedule.SetSupervisorRules(true);
-//            }
-//            else if (role == "администратор")
-//            {
-//                schedule.SetSupervisorRules(false);
-//            }
-
+            }
+            else if (role == "администратор")
+            {
+                schedule.SetSupervisorRules(false);
+            }
+            schedule.SetUserName(ui->loginLineEdit->text());
             this->setVisible(false);
-            schedule.exec();
-//        }
-//        else
-//        {
-//            QMessageBox::information(0, "Ошибка", "Неправильный логин/пароль.");
-//        }
-//    }
+            if (schedule.exec() == QDialog::Accepted)
+            {
+                ui->passLineEdit->setText("");
+                ui->loginLineEdit->setText("");
+
+                this->setVisible(true);
+            }
+        }
+        else
+        {
+            QMessageBox::information(0, "Ошибка", "Неправильный логин/пароль.");
+        }
+    }
 }
 
 void MainWindow::on_pushButton_clicked()
