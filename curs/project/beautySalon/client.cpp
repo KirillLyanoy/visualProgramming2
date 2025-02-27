@@ -2,6 +2,7 @@
 #include "ui_client.h"
 #include <QMessageBox>
 #include <QSqlQuery>
+#include <QDebug>
 
 Client::Client(QWidget *parent) :
     QDialog(parent),
@@ -20,7 +21,6 @@ Client::Client(QWidget *parent) :
     UpdateServices();
     UpdateEmployees();
 
-    Clear();
 }
 
 void Client::SetClientExist(bool value)
@@ -35,23 +35,11 @@ void Client::SetData(QStringList client)
     ui->phoneLineEdit->setText(client.at(2));
     ui->serviceComboBox->setCurrentText(client.at(3));
     ui->employeeComboBox->setCurrentText(client.at(4));
-    ui->dateEdit->setDate(QDate::fromString(client.at(5)));
-    ui->timeEdit->setTime(QTime::fromString(client.at(6)));
+    ui->dateEdit->setDate(QDate::fromString(client.at(5), "yyyy-MM-dd"));
+    ui->timeEdit->setTime(QTime::fromString(client.at(6), "HH:mm"));
     ui->additionalTextEdit->setText(client.at(7));
-}
 
-QStringList* Client::GetData()
-{
-    QStringList* client = new QStringList();
-    client->append(ui->lastNameLineEdit->text());
-    client->append(ui->firstNameLineEdit->text());
-    client->append(ui->phoneLineEdit->text());
-    client->append(ui->serviceComboBox->currentText());
-    client->append(ui->employeeComboBox->currentText());
-    client->append(ui->dateEdit->date().toString("yyyy-MM-dd"));
-    client->append(ui->timeEdit->time().toString("HH:mm"));
-    client->append(ui->additionalTextEdit->toPlainText());
-    return client;
+    this->client = client;
 }
 
 void Client::UpdateEmployees()
@@ -162,8 +150,21 @@ void Client::on_pushButton_2_clicked()
             int count = query.value(0).toInt();
             if (count > 0)
             {
-                QMessageBox::information(nullptr, "Ошибка", "У данного мастера уже есть запись на эту дату и время.");
-                return;
+                if (!clientExist)
+                {
+                    QMessageBox::information(nullptr, "Ошибка", "У данного мастера уже есть запись на эту дату и время.");
+                    return;
+                }
+                else
+                {
+
+                    if (ui->dateEdit->date().toString("yyyy-MM-dd") != client.at(5) ||
+                            ui->timeEdit->time().toString("hh:mm") != client.at(6))
+                    {
+                        QMessageBox::information(nullptr, "Ошибка", "У данного мастера уже есть запись на эту дату и время.");
+                        return;
+                    }
+                }
             }
         }
     }
@@ -185,18 +186,44 @@ void Client::on_pushButton_2_clicked()
         query.bindValue(":date", ui->dateEdit->date().toString("yyyy-MM-dd"));
         query.bindValue(":time", ui->timeEdit->time().toString("HH:mm"));
         query.bindValue(":additional", ui->additionalTextEdit->toPlainText());
-
-        if (!query.exec())
-        {
-            QMessageBox::critical(nullptr, "Ошибка", "Ошибка записи: ");
-            this->close();
-        }
     }
     else
     {
+        query.prepare("DELETE FROM schedule WHERE last_name = :last_name AND first_name = :first_name AND phone = :phone AND service = :service AND employee = :employee AND date = :date AND time = :time");
 
+        query.bindValue(":last_name", client.at(0));
+        query.bindValue(":first_name", client.at(1));
+        query.bindValue(":phone", client.at(2));
+        query.bindValue(":service", client.at(3));
+        query.bindValue(":employee", client.at(4));
+        query.bindValue(":date", client.at(5));
+        query.bindValue(":time", client.at(6));
 
+        if (!query.exec())
+        {
+            QMessageBox::critical(nullptr, "Ошибка", "Ошибка при редактировании.");
+            this->close();
+        }
+        else
+        {
+            query.prepare("INSERT INTO schedule (last_name, first_name, phone, service, employee, date, time, additional)"
+                              " VALUES (:last_name, :first_name, :phone, :service, :employee, :date, :time, :additional)");
 
+            query.bindValue(":last_name", ui->lastNameLineEdit->text());
+            query.bindValue(":first_name", ui->firstNameLineEdit->text());
+            query.bindValue(":phone", ui->phoneLineEdit->text());
+            query.bindValue(":service", ui->serviceComboBox->currentText());
+            query.bindValue(":employee", ui->employeeComboBox->currentText());
+            query.bindValue(":date", ui->dateEdit->date().toString("yyyy-MM-dd"));
+            query.bindValue(":time", ui->timeEdit->time().toString("HH:mm"));
+            query.bindValue(":additional", ui->additionalTextEdit->toPlainText());
+
+            if (!query.exec())
+            {
+                QMessageBox::critical(nullptr, "Ошибка", "Ошибка при редактировании.");
+                this->close();
+            }
+        }
     }
     this->accept();
 }

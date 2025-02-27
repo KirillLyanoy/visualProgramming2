@@ -315,22 +315,6 @@ void Schedule::on_editButton_clicked()
             currentClientData.append(temp);
         }
 
-
-        QSqlQuery query;
-        query.prepare("UPDATE schedule SET "
-                      "last_name = :newLastName, first_name = :newFirstName, "
-                      "phone = :newPhone, service = :newService, employee = :newEmployee, "
-                      "date = :newDate, time = :newTime, additional = :newAdditional "
-                      "WHERE last_name = :last_name AND first_name = :first_name AND phone = :phone AND service = :service AND employee = :employee AND date = :date AND time = :time");
-
-        query.bindValue(":last_name", currentClientData.at(0));
-        query.bindValue(":first_name", currentClientData.at(1));
-        query.bindValue(":phone", currentClientData.at(2));
-        query.bindValue(":service", currentClientData.at(3));
-        query.bindValue(":employee", ui->mainTableWidget->horizontalHeaderItem(column)->text());
-        query.bindValue(":date", currentDate.toString("yyyy-MM-dd"));
-        query.bindValue(":time", ui->mainTableWidget->verticalHeaderItem(row)->text());
-
         Client Client;
         Client.setModal(true);
 
@@ -340,33 +324,19 @@ void Schedule::on_editButton_clicked()
 
         Client.SetTimeStart(startTime);
         Client.SetTimeEnd(endTime);
+        Client.SetClientExist(true);
 
         Client.setWindowTitle("Информация о сотруднике");
 
         if (Client.exec() == QDialog::Accepted)
         {
-
-            QStringList* newClientData = Client.GetData();
-
-            query.bindValue(":newLastName", newClientData->at(0));
-            query.bindValue(":newFirstName", newClientData->at(1));
-            query.bindValue(":newPhone", newClientData->at(2));
-            query.bindValue(":newService", newClientData->at(3));
-            query.bindValue(":newEmployee", newClientData->at(4));
-            query.bindValue(":newDate", newClientData->at(5));
-            query.bindValue(":newTime", newClientData->at(6));
-            query.bindValue(":newAdditional", newClientData->at(7));
-
-            if (!query.exec())
-            {
-                QMessageBox::critical(nullptr, "Ошибка", "Ошибка при редактировании." + query.lastError().text());
-            } else
-            {
-                QMessageBox::information(nullptr, "Редактирование", "Запись отредактирована.");
-                ClearTable();
-                UpdateSchedule();
-            }
-            delete newClientData;
+            QMessageBox::information(nullptr, "Запись", "Запись отредактирована.");
+            ClearTable();
+            UpdateSchedule();
+        }
+        else
+        {
+            QMessageBox::critical(nullptr, "Ошибка", "Ошибка при записи");
         }
     }
     else

@@ -36,7 +36,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -59,7 +59,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -82,7 +82,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -236,7 +236,7 @@ QCalendarWidget QToolButton {
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -255,7 +255,7 @@ QCalendarWidget QToolButton {
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -268,7 +268,7 @@ QCalendarWidget QToolButton {
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -281,7 +281,7 @@ QCalendarWidget QToolButton {
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">

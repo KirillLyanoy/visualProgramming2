@@ -25,7 +25,6 @@ public:
     void SetClientExist(bool value);
 
     void SetData(QStringList client);
-    QStringList* GetData();
 
 private slots:
     void on_pushButton_clicked();
@@ -46,6 +45,9 @@ private:
 
     QTime timeStart;
     QTime timeEnd;
+
+    QTime tempTime;
+    QDate tempDate;
 
 };
 

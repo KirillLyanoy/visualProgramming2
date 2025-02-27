@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>522</width>
-    <height>408</height>
+    <width>461</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -40,7 +40,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -53,7 +53,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -65,7 +65,8 @@
       <widget class="QLineEdit" name="firstNameLineEdit">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -77,7 +78,8 @@
       <widget class="QLineEdit" name="lastNameLineEdit">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -90,7 +92,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -103,7 +105,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -116,7 +118,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -129,7 +131,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -142,7 +144,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -155,7 +157,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -170,7 +172,8 @@
       <widget class="QLineEdit" name="phoneLineEdit">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -182,7 +185,8 @@
       <widget class="QLabel" name="label_8">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -194,7 +198,8 @@
       <widget class="QTextEdit" name="additionalTextEdit">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -206,7 +211,8 @@
       <widget class="QComboBox" name="serviceComboBox">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
       </widget>
@@ -215,7 +221,8 @@
       <widget class="QComboBox" name="employeeComboBox">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
       </widget>
@@ -245,7 +252,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -261,7 +268,7 @@
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>

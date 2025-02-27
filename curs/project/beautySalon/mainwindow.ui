@@ -56,7 +56,8 @@
        <widget class="QLineEdit" name="passLineEdit">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <family>Bahnschrift SemiLight</family>
+          <pointsize>10</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -85,7 +86,7 @@
         <property name="font">
          <font>
           <family>Bahnschrift SemiLight</family>
-          <pointsize>12</pointsize>
+          <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
@@ -98,7 +99,7 @@
         <property name="font">
          <font>
           <family>Bahnschrift SemiLight</family>
-          <pointsize>12</pointsize>
+          <pointsize>10</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -131,7 +132,7 @@ outline: none;</string>
         <property name="font">
          <font>
           <family>Bahnschrift SemiLight</family>
-          <pointsize>12</pointsize>
+          <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
@@ -143,7 +144,8 @@ outline: none;</string>
        <widget class="QLineEdit" name="loginLineEdit">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <family>Bahnschrift SemiLight</family>
+          <pointsize>10</pointsize>
          </font>
         </property>
         <property name="styleSheet">
