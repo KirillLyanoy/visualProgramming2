@@ -10,10 +10,11 @@ Client::Client(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Clear();
 
     timeStart.setHMS(8, 0, 0, 0);
     timeEnd.setHMS(18, 0, 0, 0);
+
+    Clear();
 
     currentServices = new QList<QString>();
     currentEmployees = new QList<QString>();
@@ -80,6 +81,21 @@ void Client::SetTimeEnd(QTime time)
     timeEnd = time;
 }
 
+void Client::SetCurrentDate(QDate date)
+{
+    ui->dateEdit->setDate(date);
+}
+
+void Client::SetCurrentTime(QTime time)
+{
+    ui->timeEdit->setTime(time);
+}
+
+void Client::SetCurrentEmployee(QString employee)
+{
+    ui->employeeComboBox->setCurrentText(employee);
+}
+
 void Client::Clear()
 {
     ui->firstNameLineEdit->setText("");
@@ -88,7 +104,7 @@ void Client::Clear()
     ui->serviceComboBox->clear();
     ui->employeeComboBox->clear();
     ui->dateEdit->setDate(QDate::currentDate());
-    ui->timeEdit->setTime(QTime(0, 0));
+    ui->timeEdit->setTime(timeStart);
     ui->additionalTextEdit->setText("");
 
     clientExist = false;
@@ -186,6 +202,12 @@ void Client::on_pushButton_2_clicked()
         query.bindValue(":date", ui->dateEdit->date().toString("yyyy-MM-dd"));
         query.bindValue(":time", ui->timeEdit->time().toString("HH:mm"));
         query.bindValue(":additional", ui->additionalTextEdit->toPlainText());
+
+        if (!query.exec())
+        {
+            QMessageBox::critical(nullptr, "Ошибка", "Ошибка при записи.");
+            this->close();
+        }
     }
     else
     {

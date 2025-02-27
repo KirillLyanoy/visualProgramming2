@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QDate>
+#include <QTableWidgetItem>
 
 namespace Ui {
 class Schedule;
@@ -19,6 +20,7 @@ public:
     void SetSupervisorRules(bool balue);
     void SetUserName(QString name);
 
+
 private slots:
     void on_calendarWidget_selectionChanged();
 
@@ -32,6 +34,12 @@ private slots:
 
     void on_editButton_clicked();
 
+    void on_mainTableWidget_itemDoubleClicked(QTableWidgetItem *item);
+
+    void on_mainTableWidget_doubleClicked(const QModelIndex &index);
+
+    void on_mainTableWidget_cellDoubleClicked(int row, int column);
+
 private:
     void BuildTable();
     void GetEmployeesList();
@@ -40,6 +48,10 @@ private:
     void UpdateSchedule();
     void ClearTable();
     void SetDefaultTableColor();
+    void GetDataFromTable(QStringList *currentClientData, int row, int column);
+    void addClient();
+    void editClient();
+
 
     Ui::Schedule *ui;
     bool supervisorRules;

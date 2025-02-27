@@ -19,22 +19,6 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="5" column="1">
-      <widget class="QDateEdit" name="dateEdit">
-       <property name="font">
-        <font>
-         <family>Bahnschrift SemiLight</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
        <property name="font">
@@ -45,19 +29,6 @@
        </property>
        <property name="text">
         <string>Услуга:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="font">
-        <font>
-         <family>Bahnschrift SemiLight</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Телефон:</string>
        </property>
       </widget>
      </item>
@@ -74,6 +45,26 @@
        </property>
       </widget>
      </item>
+     <item row="7" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QTimeEdit" name="timeEdit">
+         <property name="font">
+          <font>
+           <family>Bahnschrift SemiLight</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
      <item row="1" column="1">
       <widget class="QLineEdit" name="lastNameLineEdit">
        <property name="font">
@@ -87,8 +78,8 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_8">
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
@@ -96,7 +87,59 @@
         </font>
        </property>
        <property name="text">
-        <string>Фамилия:</string>
+        <string>Дополнительно:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Дата:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Время:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QComboBox" name="employeeComboBox">
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: white;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="phoneLineEdit">
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiLight</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: white;</string>
        </property>
       </widget>
      </item>
@@ -126,8 +169,8 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_6">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
@@ -135,12 +178,12 @@
         </font>
        </property>
        <property name="text">
-        <string>Дата:</string>
+        <string>Телефон:</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_7">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
        <property name="font">
         <font>
          <family>Bahnschrift SemiLight</family>
@@ -148,53 +191,11 @@
         </font>
        </property>
        <property name="text">
-        <string>Время:</string>
+        <string>Фамилия:</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QTimeEdit" name="timeEdit">
-       <property name="font">
-        <font>
-         <family>Bahnschrift SemiLight</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="phoneLineEdit">
-       <property name="font">
-        <font>
-         <family>Bahnschrift SemiLight</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_8">
-       <property name="font">
-        <font>
-         <family>Bahnschrift SemiLight</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Дополнительно:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
+     <item row="9" column="1">
       <widget class="QTextEdit" name="additionalTextEdit">
        <property name="font">
         <font>
@@ -215,17 +216,30 @@
          <pointsize>10</pointsize>
         </font>
        </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QComboBox" name="employeeComboBox">
-       <property name="font">
-        <font>
-         <family>Bahnschrift SemiLight</family>
-         <pointsize>10</pointsize>
-        </font>
+       <property name="styleSheet">
+        <string notr="true">background-color: white;</string>
        </property>
       </widget>
+     </item>
+     <item row="5" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QDateEdit" name="dateEdit">
+         <property name="font">
+          <font>
+           <family>Bahnschrift SemiLight</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

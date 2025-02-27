@@ -163,6 +163,30 @@ void Schedule::GetServicesList()
     }
 }
 
+void Schedule::GetDataFromTable(QStringList *currentClientData, int row, int column)
+{
+    QString currentClient = ui->mainTableWidget->item(row, column)->text();
+    *currentClientData = currentClient.split(QRegExp("[\n]"), QString::SkipEmptyParts);
+
+    QString temp;
+    if (currentClientData->size() == 4)
+    {
+        currentClientData->append(ui->mainTableWidget->horizontalHeaderItem(column)->text());
+        currentClientData->append(currentDate.toString("yyyy-MM-dd"));
+        currentClientData->append(ui->mainTableWidget->verticalHeaderItem(row)->text());
+        currentClientData->append("");
+    }
+    else if (currentClientData->size() == 5)
+    {
+        temp = currentClientData->at(4);
+        currentClientData->removeLast();
+        currentClientData->append(ui->mainTableWidget->horizontalHeaderItem(column)->text());
+        currentClientData->append(currentDate.toString("yyyy-MM-dd"));
+        currentClientData->append(ui->mainTableWidget->verticalHeaderItem(row)->text());
+        currentClientData->append(temp);
+    }
+}
+
 
 Schedule::~Schedule()
 {
@@ -180,7 +204,7 @@ void Schedule::on_calendarWidget_selectionChanged()
 
 }
 
-void Schedule::on_addButton_clicked()
+void Schedule::addClient()
 {
     Client Client;
     Client.setModal(true);
@@ -188,13 +212,74 @@ void Schedule::on_addButton_clicked()
     Client.SetEmployeesList(&employeesList);
     Client.SetTimeStart(startTime);
     Client.SetTimeEnd(endTime);
-    Client.setWindowTitle("Информация о сотруднике");
+    Client.SetCurrentDate(currentDate);
+
+    if (ui->mainTableWidget->selectedItems().isEmpty())
+    {
+        QModelIndexList selectedIndexes = ui->mainTableWidget->selectionModel()->selectedIndexes();
+        QModelIndex index = selectedIndexes.first();
+        int row = index.row();
+        int column = index.column();
+
+        QString employee = ui->mainTableWidget->horizontalHeaderItem(column)->text();
+        QString time =  ui->mainTableWidget->verticalHeaderItem(row)->text();
+
+        Client.SetCurrentTime(QTime::fromString(time, "hh:mm"));
+        Client.SetCurrentEmployee(employee);
+    }
+
+    Client.setWindowTitle("Информация о клиенте");
 
     if (Client.exec() == QDialog::Accepted)
     {
         QMessageBox::information(nullptr, "Запись", "Клиент записан.");
         UpdateSchedule();
     }
+}
+
+void Schedule::editClient()
+{
+    QList<QTableWidgetItem*> items = ui->mainTableWidget->selectedItems();
+
+
+    if (!items.isEmpty())
+    {
+        QTableWidgetItem *item = items.first();
+        int row = item->row();
+        int column = item->column();
+
+        QStringList currentClientData;
+        GetDataFromTable(&currentClientData, row, column);
+
+        Client Client;
+        Client.setModal(true);
+
+        Client.SetServicesList(&servicesList);
+        Client.SetEmployeesList(&employeesList);
+        Client.SetData(currentClientData);
+
+        Client.SetTimeStart(startTime);
+        Client.SetTimeEnd(endTime);
+        Client.SetClientExist(true);
+
+        Client.setWindowTitle("Информация о сотруднике");
+
+        if (Client.exec() == QDialog::Accepted)
+        {
+            QMessageBox::information(nullptr, "Запись", "Запись отредактирована.");
+            ClearTable();
+            UpdateSchedule();
+        }
+    }
+    else
+    {
+        QMessageBox::information(nullptr, "Ошибка", "Не выбрана запись редактирования.");
+    }
+}
+
+void Schedule::on_addButton_clicked()
+{
+    addClient();
 }
 
 void Schedule::on_deleteButton_clicked()
@@ -224,26 +309,8 @@ void Schedule::on_deleteButton_clicked()
             QSqlQuery query;
             query.prepare("DELETE FROM schedule WHERE last_name = :last_name AND first_name = :first_name AND phone = :phone AND service = :service AND employee = :employee AND date = :date AND time = :time");
 
-            QString currentClient = ui->mainTableWidget->item(row, column)->text();
-            QStringList currentClientData = currentClient.split(QRegExp("[\n]"), QString::SkipEmptyParts);
-
-            QString temp;
-            if (currentClientData.size() == 4)
-            {
-                currentClientData.append(ui->mainTableWidget->horizontalHeaderItem(column)->text());
-                currentClientData.append(currentDate.toString("yyyy-MM-dd"));
-                currentClientData.append(ui->mainTableWidget->verticalHeaderItem(row)->text());
-                currentClientData.append("");
-            }
-            else if (currentClientData.size() == 5)
-            {
-                temp = currentClientData.at(4);
-                currentClientData.removeLast();
-                currentClientData.append(ui->mainTableWidget->horizontalHeaderItem(column)->text());
-                currentClientData.append(currentDate.toString("yyyy-MM-dd"));
-                currentClientData.append(ui->mainTableWidget->verticalHeaderItem(row)->text());
-                currentClientData.append(temp);
-            }
+            QStringList currentClientData;
+            GetDataFromTable(&currentClientData, row, column);
 
             query.bindValue(":last_name", currentClientData.at(0));
             query.bindValue(":first_name", currentClientData.at(1));
@@ -285,62 +352,19 @@ void Schedule::on_pushButton_2_clicked()
 
 void Schedule::on_editButton_clicked()
 {
-    QList<QTableWidgetItem*> items = ui->mainTableWidget->selectedItems();
+    editClient();
+}
 
 
-    if (!items.isEmpty())
+
+void Schedule::on_mainTableWidget_cellDoubleClicked(int row, int column)
+{
+    if(ui->mainTableWidget->item(row, column) == nullptr)
     {
-        QTableWidgetItem *item = items.first();
-        int row = item->row();
-        int column = item->column();
-
-        QString currentClient = ui->mainTableWidget->item(row, column)->text();
-        QStringList currentClientData = currentClient.split(QRegExp("[\n]"), QString::SkipEmptyParts);
-
-        QString temp;
-        if (currentClientData.size() == 4)
-        {
-            currentClientData.append(ui->mainTableWidget->horizontalHeaderItem(column)->text());
-            currentClientData.append(currentDate.toString("yyyy-MM-dd"));
-            currentClientData.append(ui->mainTableWidget->verticalHeaderItem(row)->text());
-            currentClientData.append("");
-        }
-        else if (currentClientData.size() == 5)
-        {
-            temp = currentClientData.at(4);
-            currentClientData.removeLast();
-            currentClientData.append(ui->mainTableWidget->horizontalHeaderItem(column)->text());
-            currentClientData.append(currentDate.toString("yyyy-MM-dd"));
-            currentClientData.append(ui->mainTableWidget->verticalHeaderItem(row)->text());
-            currentClientData.append(temp);
-        }
-
-        Client Client;
-        Client.setModal(true);
-
-        Client.SetServicesList(&servicesList);
-        Client.SetEmployeesList(&employeesList);
-        Client.SetData(currentClientData);
-
-        Client.SetTimeStart(startTime);
-        Client.SetTimeEnd(endTime);
-        Client.SetClientExist(true);
-
-        Client.setWindowTitle("Информация о сотруднике");
-
-        if (Client.exec() == QDialog::Accepted)
-        {
-            QMessageBox::information(nullptr, "Запись", "Запись отредактирована.");
-            ClearTable();
-            UpdateSchedule();
-        }
-        else
-        {
-            QMessageBox::critical(nullptr, "Ошибка", "Ошибка при записи");
-        }
+        addClient();
     }
     else
     {
-        QMessageBox::information(nullptr, "Ошибка", "Не выбрана запись редактирования.");
+        editClient();
     }
 }

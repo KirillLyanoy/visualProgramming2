@@ -25,6 +25,9 @@ public:
     void SetClientExist(bool value);
 
     void SetData(QStringList client);
+    void SetCurrentDate(QDate date);
+    void SetCurrentTime(QTime time);
+    void SetCurrentEmployee(QString employee);
 
 private slots:
     void on_pushButton_clicked();
@@ -45,10 +48,6 @@ private:
 
     QTime timeStart;
     QTime timeEnd;
-
-    QTime tempTime;
-    QDate tempDate;
-
 };
 
 #endif
