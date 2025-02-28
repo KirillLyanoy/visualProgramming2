@@ -17,7 +17,7 @@ public:
     explicit Schedule(QWidget *parent = nullptr);
     ~Schedule();
 
-    void SetSupervisorRules(bool balue);
+    void SetSupervisorRules(bool value);
     void SetUserName(QString name);
 
 
@@ -39,6 +39,10 @@ private slots:
     void on_mainTableWidget_doubleClicked(const QModelIndex &index);
 
     void on_mainTableWidget_cellDoubleClicked(int row, int column);
+
+    void on_editorButton_clicked();
+
+    void on_reportsButton_clicked();
 
 private:
     void BuildTable();
@@ -64,7 +68,6 @@ private:
     QList<QString> servicesList;
     QList<QTime> timeList;
     QList<QStringList> clientsList;
-
 };
 
 #endif // SCHEDULE_H

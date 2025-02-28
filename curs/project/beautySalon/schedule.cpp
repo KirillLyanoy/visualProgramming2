@@ -8,6 +8,8 @@
 #include "client.h"
 #include <QTime>
 #include "mainwindow.h"
+#include "editor.h"
+#include "reports.h"
 
 Schedule::Schedule(QWidget *parent) :
     QDialog(parent),
@@ -110,6 +112,7 @@ void Schedule::UpdateSchedule()
                                 note[3] + "\n" + note[7]);
 
                         item->setBackground(QBrush(QColor(135, 206, 250)));
+                        item->setTextAlignment(Qt::AlignHCenter);
                         ui->mainTableWidget->setItem(timeList.indexOf(time), employeesList.indexOf(employee), item );
 
                         ui->mainTableWidget->update();
@@ -187,7 +190,6 @@ void Schedule::GetDataFromTable(QStringList *currentClientData, int row, int col
     }
 }
 
-
 Schedule::~Schedule()
 {
     delete ui;
@@ -217,22 +219,24 @@ void Schedule::addClient()
     if (ui->mainTableWidget->selectedItems().isEmpty())
     {
         QModelIndexList selectedIndexes = ui->mainTableWidget->selectionModel()->selectedIndexes();
-        QModelIndex index = selectedIndexes.first();
-        int row = index.row();
-        int column = index.column();
+        if (!selectedIndexes.isEmpty())
+        {
+            QModelIndex index = selectedIndexes.first();
+            int row = index.row();
+            int column = index.column();
 
-        QString employee = ui->mainTableWidget->horizontalHeaderItem(column)->text();
-        QString time =  ui->mainTableWidget->verticalHeaderItem(row)->text();
+            QString employee = ui->mainTableWidget->horizontalHeaderItem(column)->text();
+            QString time =  ui->mainTableWidget->verticalHeaderItem(row)->text();
 
-        Client.SetCurrentTime(QTime::fromString(time, "hh:mm"));
-        Client.SetCurrentEmployee(employee);
+            Client.SetCurrentTime(QTime::fromString(time, "hh:mm"));
+            Client.SetCurrentEmployee(employee);
+        }
     }
 
     Client.setWindowTitle("Информация о клиенте");
 
     if (Client.exec() == QDialog::Accepted)
     {
-        QMessageBox::information(nullptr, "Запись", "Клиент записан.");
         UpdateSchedule();
     }
 }
@@ -240,7 +244,6 @@ void Schedule::addClient()
 void Schedule::editClient()
 {
     QList<QTableWidgetItem*> items = ui->mainTableWidget->selectedItems();
-
 
     if (!items.isEmpty())
     {
@@ -262,11 +265,10 @@ void Schedule::editClient()
         Client.SetTimeEnd(endTime);
         Client.SetClientExist(true);
 
-        Client.setWindowTitle("Информация о сотруднике");
+        Client.setWindowTitle("Информация о клиенте");
 
         if (Client.exec() == QDialog::Accepted)
         {
-            QMessageBox::information(nullptr, "Запись", "Запись отредактирована.");
             ClearTable();
             UpdateSchedule();
         }
@@ -355,8 +357,6 @@ void Schedule::on_editButton_clicked()
     editClient();
 }
 
-
-
 void Schedule::on_mainTableWidget_cellDoubleClicked(int row, int column)
 {
     if(ui->mainTableWidget->item(row, column) == nullptr)
@@ -366,5 +366,32 @@ void Schedule::on_mainTableWidget_cellDoubleClicked(int row, int column)
     else
     {
         editClient();
+    }
+}
+
+void Schedule::on_editorButton_clicked()
+{
+    Editor editor;
+
+    editor.SetSupervisorRules(supervisorRules);
+    editor.setWindowTitle("Редактор");
+    editor.exec();
+
+    GetEmployeesList();
+    GetServicesList();
+}
+
+void Schedule::on_reportsButton_clicked()
+{
+    if (supervisorRules)
+    {
+        Reports report;
+
+        report.setWindowTitle("Отчёты");
+        report.exec();
+    }
+    else
+    {
+        QMessageBox::information(nullptr, "Ошибка", "Данный раздел доступен только руководителям.");
     }
 }

@@ -27,22 +27,28 @@ CONFIG += c++11
 SOURCES += \
         client.cpp \
         database.cpp \
+        editor.cpp \
         forgotpass.cpp \
         main.cpp \
         mainwindow.cpp \
+        reports.cpp \
         schedule.cpp
 
 HEADERS += \
         client.h \
         database.h \
+        editor.h \
         forgotpass.h \
         mainwindow.h \
+        reports.h \
         schedule.h
 
 FORMS += \
         client.ui \
+        editor.ui \
         forgotpass.ui \
         mainwindow.ui \
+        reports.ui \
         schedule.ui
 
 # Default rules for deployment.

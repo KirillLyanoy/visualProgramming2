@@ -42,7 +42,7 @@ void MainWindow::on_authButton_3_clicked()
 
         if (query.next())
         {
-            QString role = query.value(0).toString();
+            QString role = query.value(3).toString();
 
             Schedule schedule;
 

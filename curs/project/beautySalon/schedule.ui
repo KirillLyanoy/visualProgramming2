@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1413</width>
-    <height>717</height>
+    <width>1800</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,7 +40,8 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(217, 255, 229)</string>
+        <string notr="true">background-color: rgb(167, 255, 162);
+outline: none;</string>
        </property>
        <property name="text">
         <string>Добавить
@@ -155,6 +156,9 @@
          <family>Bahnschrift SemiLight</family>
          <pointsize>9</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: white;</string>
        </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
