@@ -36,8 +36,76 @@ void MainWindow::on_authButton_3_clicked()
 
         if (!query.exec())
         {
-            QMessageBox::critical(0, "Ошибка", "Ошибка при обращении к базе пользователей.");
-            return;
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Question);
+                msgBox.setText("База данных пользователей не найдена. Создать новую базу?");
+
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+                msgBox.setButtonText(QMessageBox::Yes, "Да");
+                msgBox.setButtonText(QMessageBox::No, "Нет");
+
+                int ret = msgBox.exec();
+
+                if (ret == QMessageBox::Yes)
+                {
+                    QSqlQuery query;
+                       QString createEmployeesTableQuery = "CREATE TABLE IF NOT EXISTS employees ("
+                                                           "last_name TEXT, "
+                                                           "first_name TEXT, "
+                                                           "middle_name TEXT, "
+                                                           "birth_date DATE, "
+                                                           "position TEXT)";
+                       if (!query.exec(createEmployeesTableQuery)) {
+                           QMessageBox::critical(nullptr, "Ошибка", "Ошибка при создании таблицы сотрудников");
+                           return;
+                       }
+
+                       QString createScheduleTableQuery = "CREATE TABLE IF NOT EXISTS schedule ("
+                                                          "last_name TEXT, "
+                                                          "first_name TEXT, "
+                                                          "phone TEXT, "
+                                                          "service TEXT, "
+                                                          "employee TEXT, "
+                                                          "date TEXT, "
+                                                          "time TEXT, "
+                                                          "additional TEXT)";
+                       if (!query.exec(createScheduleTableQuery)) {
+                           QMessageBox::critical(nullptr, "Ошибка", "Ошибка при создании таблицы расписания клиентов");
+                           return;
+                       }
+
+                       QString createServicesTableQuery = "CREATE TABLE IF NOT EXISTS services ("
+                                                          "service TEXT, "
+                                                          "price REAL)";
+                       if (!query.exec(createServicesTableQuery)) {
+                           QMessageBox::critical(nullptr, "Ошибка", "Ошибка при создании таблицы услуг");
+                           return;
+                       }
+
+                       QString createUsersTableQuery = "CREATE TABLE IF NOT EXISTS users ("
+                                                       "login TEXT, "
+                                                       "password TEXT, "
+                                                       "email TEXT, "
+                                                       "role TEXT CHECK(role IN ('руководитель', 'администратор')))";
+                       if (!query.exec(createUsersTableQuery)) {
+                           QMessageBox::critical(nullptr, "Ошибка", "Ошибка при создании таблицы пользователей");
+                           return;
+                       }
+
+                       QString insertUserQuery = "INSERT INTO users (login, password, email, role) "
+                                                 "VALUES ('admin', 'admin', 'admin@service.com', 'руководитель')";
+                       if (!query.exec(insertUserQuery)) {
+                           QMessageBox::critical(nullptr, "Ошибка", "Ошибка при добавления стандартного пользователя admin");
+                           return;
+                       }
+                       return;
+                }
+
+                if (ret == QMessageBox::No)
+                {
+                    return;
+                }
         }
 
         if (query.next())

@@ -37,11 +37,55 @@ Editor::~Editor()
     delete ui;
 }
 
+void Editor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles) {
+    if (!roles.isEmpty() && !roles.contains(Qt::EditRole))
+    {
+        return;
+    }
+
+    int row = topLeft.row();
+    int column = topLeft.column();
+    QString newValue = topLeft.model()->data(topLeft, Qt::DisplayRole).toString();
+
+    if (ui->tableView->model() == users)
+    {
+        if (column == 3 && newValue != "руководитель" && newValue != "администратор")
+        {
+            QMessageBox::information(nullptr, "Ошибка", "Роль может быть только \"руководитель\" или \"администратор\".");
+
+            QAbstractItemModel *model = const_cast<QAbstractItemModel*>(topLeft.model());
+
+            if (temporaryTableItem == "руководитель" || temporaryTableItem == "администратор")
+            {
+                model->setData(topLeft, temporaryTableItem, Qt::EditRole);
+                return;
+            }
+            else
+            {
+                model->setData(topLeft, "руководитель", Qt::EditRole);
+                return;
+            }
+        }
+    }
+
+    if (newValue.isEmpty())
+    {
+        QMessageBox::information(nullptr, "Ошибка", "Поле не может быть пустым.");
+
+        QAbstractItemModel *model = const_cast<QAbstractItemModel*>(topLeft.model());
+        model->setData(topLeft, temporaryTableItem, Qt::EditRole);
+    }
+}
+
+
 void Editor::on_employeesListButton_clicked()
 {
     ui->tableView->setModel(employees);
     currentTableName = "employees";
     currentRow = -1;    
+
+    connect(ui->tableView->model(), &QAbstractItemModel::dataChanged,
+            this, &Editor::onDataChanged);
 
     employees->setHeaderData(0, Qt::Horizontal, tr("Фамилия"));
     employees->setHeaderData(1, Qt::Horizontal, tr("Имя"));
@@ -56,6 +100,9 @@ void Editor::on_administratorListButton_clicked()
     currentTableName = "users";
     currentRow = -1;
 
+    connect(ui->tableView->model(), &QAbstractItemModel::dataChanged,
+            this, &Editor::onDataChanged);
+
     users->setHeaderData(0, Qt::Horizontal, tr("Логин"));
     users->setHeaderData(1, Qt::Horizontal, tr("Пароль"));
     users->setHeaderData(2, Qt::Horizontal, tr("Email"));
@@ -67,6 +114,9 @@ void Editor::on_serviceListButton_clicked()
     ui->tableView->setModel(services);
     currentTableName = "services";
     currentRow = -1;
+
+    connect(ui->tableView->model(), &QAbstractItemModel::dataChanged,
+            this, &Editor::onDataChanged);
 
     services->setHeaderData(0, Qt::Horizontal, tr("Услуга"));
     services->setHeaderData(1, Qt::Horizontal, tr("Стоимость"));
@@ -112,18 +162,33 @@ void Editor::on_deleteButton_clicked()
         {
             if (currentTableName == "employees")
             {
+                employees->blockSignals(true);
                 employees->removeRow(currentRow);
-                employees->select();;
+                employees->select();
+                employees->blockSignals(false);
+
+                ui->tableView->setModel(nullptr);
+                ui->tableView->setModel(employees);
             }
             else if (currentTableName == "users")
             {
-                users->removeRow(currentRow);
-                users->select();
+                    users->blockSignals(true);
+                    users->removeRow(currentRow);
+                    users->select();
+                    users->blockSignals(false);
+
+                    ui->tableView->setModel(nullptr);
+                    ui->tableView->setModel(users);
             }
             else if (currentTableName == "services")
             {
+                services->blockSignals(true);
                 services->removeRow(currentRow);
                 services->select();
+                services->blockSignals(false);
+
+                ui->tableView->setModel(nullptr);
+                ui->tableView->setModel(services);
             }
             else
             {
@@ -142,4 +207,11 @@ void Editor::on_tableView_clicked(const QModelIndex &index)
 void Editor::on_pushButton_clicked()
 {
     this->close();
+}
+
+void Editor::on_tableView_doubleClicked(const QModelIndex &index)
+{
+    temporaryTableItem = index.data(Qt::DisplayRole).toString();
+
+    if (temporaryTableItem.isEmpty()) temporaryTableItem = "Пусто";
 }

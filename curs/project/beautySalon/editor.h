@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QSqlTableModel>
+#include <QTableWidgetItem>
 
 namespace Ui {
 class Editor;
@@ -33,13 +34,18 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+
+
+    void on_tableView_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::Editor *ui;
 
     QSqlTableModel* services;
     QSqlTableModel* users;
     QSqlTableModel* employees;
-
+    QString temporaryTableItem;
     QString currentTableName;
 
     int currentRow;
